@@ -15,7 +15,9 @@
   
     // set 1rem = viewWidth / 10
     function setRemUnit () {
-      var rem = docEl.clientWidth / 10
+      //在这里限制最大宽度是540
+      var clinetWidth = docEl.clientWidth;
+      var rem = clinetWidth > 540 ? 540 / 10 : clinetWidth / 10
       docEl.style.fontSize = rem + 'px'
     }
   

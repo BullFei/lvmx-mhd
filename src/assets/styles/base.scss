@@ -136,6 +136,8 @@ body {
 html,
 body,
 #app {
+  //这里的px单位，不希望被转化成rem
+  //只需要将 px => PX
   max-width: 540PX;
   height: 100%;
   margin: auto;
