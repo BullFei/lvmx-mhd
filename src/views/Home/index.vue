@@ -12,26 +12,27 @@
         <div class="header-search"></div>
       </a>
     </header>
+    <br>
     <!-- 首页头部 end -->
     <!-- 轮播图 begin -->
-    <Swiper :autoplay = "2000" @change = 'onChange' class = 'my-swiper'>
+    <Swiper  @change = 'onChange' class = 'my-swiper'>
       <SwiperItem>
         <img
-              src="https://img.manhuadao.cn/upload/AdGroup201906/9315f7dd68b346928219f29bd9c89e60.jpg"
-              alt
-            />
+          src="https://img.manhuadao.cn/upload/AdGroup201906/9315f7dd68b346928219f29bd9c89e60.jpg"
+          alt
+        />
       </SwiperItem>
       <SwiperItem>
         <img
-              src="https://img.manhuadao.cn/upload/AdGroup201903/22b43c03a0f943cda001c5338fe0ddd9.jpg"
-              alt
-            />
+          src="https://img.manhuadao.cn/upload/AdGroup201903/22b43c03a0f943cda001c5338fe0ddd9.jpg"
+          alt
+        />
       </SwiperItem>
       <SwiperItem>
         <img
-              src="https://img.manhuadao.cn/upload/AdGroup202003/dda50e4233e34186910fd490aea1cd91.jpg"
-              alt
-            />
+          src="https://img.manhuadao.cn/upload/AdGroup202003/dda50e4233e34186910fd490aea1cd91.jpg"
+          alt
+        />
       </SwiperItem>
     </Swiper>
     <!-- 轮播图 end -->
@@ -60,11 +61,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 引入共用的mixins.scss
+@import '~@/assets/styles/mixins.scss';
 .page-home {
   display: flex;
   flex-direction: column;
   height: 100%;
   .index-header {
+    position: relative;
     display: flex;
     height: 44px;
     // 三者等分平铺
@@ -73,6 +77,17 @@ export default {
     padding: 0 20px;
     box-sizing: border-box;
     // border-bottom: 1px solid #e9e9e9;
+    // &::after{
+    //   content: '';
+    //   position: absolute;
+    //   width: 100%;
+    //   left: 0px;
+    //   bottom: 0px;
+    //   height: 1px;
+    //   background: #e9e9e9;
+    //   transform: scaleY(0.5);
+    // }
+    @include border-bottom;
     .user-btn {
       width: 25px;
       height: 25px;
