@@ -1,27 +1,66 @@
 <template>
-  <div class = 'page-home'>
-    <header class = 'index-header'>
+  <div class="page-home">
+    <!-- 首页头部 begin -->
+    <header class="index-header">
       <a href="">
-        <div class = 'header-user'>
-          <div class = 'user-btn'></div>
+        <div class="header-user">
+          <div class="user-btn"></div>
         </div>
       </a>
-      <div class = 'header-logo'></div>
+      <div class="header-logo"></div>
       <a href="">
-        <div class = 'header-search'></div>
+        <div class="header-search"></div>
       </a>
     </header>
+    <!-- 首页头部 end -->
+    <!-- 轮播图 begin -->
+    <Swiper :autoplay = "2000" @change = 'onChange' class = 'my-swiper'>
+      <SwiperItem>
+        <img
+              src="https://img.manhuadao.cn/upload/AdGroup201906/9315f7dd68b346928219f29bd9c89e60.jpg"
+              alt
+            />
+      </SwiperItem>
+      <SwiperItem>
+        <img
+              src="https://img.manhuadao.cn/upload/AdGroup201903/22b43c03a0f943cda001c5338fe0ddd9.jpg"
+              alt
+            />
+      </SwiperItem>
+      <SwiperItem>
+        <img
+              src="https://img.manhuadao.cn/upload/AdGroup202003/dda50e4233e34186910fd490aea1cd91.jpg"
+              alt
+            />
+      </SwiperItem>
+    </Swiper>
+    <!-- 轮播图 end -->
   </div>
 </template>
 
 <script>
+// 使用../的相对路径时，如果当前文件位置发生变化的时候，相对路径也需要修改。
+// 如果使用 @ 别名的方式，就不需要去修改这个路径了
+// import Swiper from '@/components/Swiper/Swiper.vue'
+// import SwiperItem from '@/components/Swiper/SwiperItem.vue'
+import { Swiper, SwiperItem } from '@/components/Swiper'
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    Swiper,
+    SwiperItem
+  },
+  methods: {
+    onChange (index) {
+      console.log('swiper', index)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.page-home{
+.page-home {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -52,6 +91,9 @@ export default {
       background: url(~@/assets/icon/header-search.png) no-repeat;
       background-size: 100%;
     }
+  }
+  .my-swiper img {
+    width: 100%;
   }
 }
 </style>
