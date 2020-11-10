@@ -8,10 +8,10 @@ import './assets/styles/base.scss'
 Vue.config.productionTip = false
 
 // 全局定义一个过滤器， formatYi
-// Vue.filter('formatYi', (value) => {
-//   console.log('value', value)
-//   return `${(value / Math.pow(10, 8)).toFixed(2)}亿`
-// })
+Vue.filter('formatYi', (value) => {
+  console.log('value', value)
+  return `${(value / Math.pow(10, 8)).toFixed(2)}亿`
+})
 
 new Vue({
   router,

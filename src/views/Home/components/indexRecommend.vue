@@ -14,7 +14,7 @@
         v-for="childItem in info.comicslist"
         :key="childItem.bigbook_id"
       >
-        <img class="item-pic" :src="JSON.parse(childItem.extension).xsyzfx" />
+        <img class="item-pic" :src="childItem.extension && JSON.parse(childItem.extension).xsyzfx" />
         <p class="item-name font-28">{{ childItem.bigbook_name }}</p>
         <p class="item-text font-24">{{ childItem.recommendwords }}</p>
       </div>
@@ -38,7 +38,7 @@
       >
         <img
           class="item-pic"
-          :src="JSON.parse(childItem.extension).scfk344_202"
+          :src="childItem.extension && JSON.parse(childItem.extension).scfk344_202"
         />
         <div class="ranking-group">
           <div :class="`item-ranking item-ranking-${childIndex + 1}`"></div>
