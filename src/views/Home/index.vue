@@ -13,261 +13,98 @@
       </a>
     </header>
     <!-- 首页头部 end -->
-    <div class = 'index-main'>
+    <div class="index-main">
       <!-- 轮播图 begin -->
-    <Swiper @change="onChange" class="my-swiper">
-      <SwiperItem>
-        <img
-          src="https://img.manhuadao.cn/upload/AdGroup201906/9315f7dd68b346928219f29bd9c89e60.jpg"
-          alt
-        />
-      </SwiperItem>
-      <SwiperItem>
-        <img
-          src="https://img.manhuadao.cn/upload/AdGroup201903/22b43c03a0f943cda001c5338fe0ddd9.jpg"
-          alt
-        />
-      </SwiperItem>
-      <SwiperItem>
-        <img
-          src="https://img.manhuadao.cn/upload/AdGroup202003/dda50e4233e34186910fd490aea1cd91.jpg"
-          alt
-        />
-      </SwiperItem>
-    </Swiper>
-    <!-- 轮播图 end -->
-    <nav class="index-nav">
-      <a href="javascript:;">
-        <div class="nav-item">
-          <i class="iconfont icon-icon_addmessage"></i>
-          <p class="nav-text font-24">分类</p>
-        </div>
-      </a>
-      <a href="javascript:;">
-        <div class="nav-item">
-          <i class="iconfont icon-icon_addresslist"></i>
-          <p class="nav-text font-24">排行</p>
-        </div>
-      </a>
-      <a href="javascript:;">
-        <div class="nav-item">
-          <i class="iconfont icon-icon_addressbook"></i>
-          <p class="nav-text font-24">VIP专区</p>
-        </div>
-      </a>
-      <a href="javascript:;">
-        <div class="nav-item">
-          <i class="iconfont icon-icon_at"></i>
-          <p class="nav-text font-24">历史</p>
-        </div>
-      </a>
-    </nav>
-     <section class="index-recommend">
+      <Swiper @change="onChange" class="my-swiper" v-if="bannerList.length > 0">
+        <SwiperItem v-for="item in bannerList" :key="item.id">
+          <img :src="item.imageurl" alt />
+        </SwiperItem>
+      </Swiper>
+      <!-- 轮播图 end -->
+      <nav class="index-nav">
+        <a href="javascript:;">
+          <div class="nav-item">
+            <i class="iconfont icon-icon_addmessage"></i>
+            <p class="nav-text font-24">分类</p>
+          </div>
+        </a>
+        <a href="javascript:;">
+          <div class="nav-item">
+            <i class="iconfont icon-icon_addresslist"></i>
+            <p class="nav-text font-24">排行</p>
+          </div>
+        </a>
+        <a href="javascript:;">
+          <div class="nav-item">
+            <i class="iconfont icon-icon_addressbook"></i>
+            <p class="nav-text font-24">VIP专区</p>
+          </div>
+        </a>
+        <a href="javascript:;">
+          <div class="nav-item">
+            <i class="iconfont icon-icon_at"></i>
+            <p class="nav-text font-24">历史</p>
+          </div>
+        </a>
+      </nav>
+      <section
+        class="index-recommend"
+        v-for="item in recommendList"
+        :key="item.specialid"
+      >
         <div class="recommend-divide"></div>
         <div class="recommend-title">
           <div class="title-group">
-            <img class="title-icon" src="https://img.manhuadao.cn/upload/icon/180208/ic_rexue.png" />
-            <span class="title-text font-36">燃烧吧热血</span>
+            <img class="title-icon" :src="item.icon" />
+            <span class="title-text font-36">{{ item.name }}</span>
           </div>
           <span class="title-more font-24">更多 &gt;</span>
         </div>
-        <div class="recommend-type-1">
-          <div class="item">
+        <div v-if="item.comicsviewtype === 1" :class="`recommend-type-1`">
+          <div
+            class="item"
+            v-for="childItem in item.comicslist"
+            :key="childItem.bigbook_id"
+          >
             <img
               class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201905/314b3ba47fb74621883462c8662aaed6.jpg"
+              :src="JSON.parse(childItem.extension).xsyzfx"
             />
-            <p class="item-name font-28">驭灵师</p>
-            <p class="item-text font-24">取代主角的光环作者</p>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201812/773db9e30dc043df9ad19eb142ac0dbd.jpg"
-            />
-            <p class="item-name font-28">天才高手</p>
-            <p class="item-text font-24">屌丝美男的各种宿命的纠缠</p>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201907/fa3e71b6701449fb90b54e3d8e341b8d.jpg"
-            />
-            <p class="item-name font-28">末世恋爱法则</p>
-            <p class="item-text font-24">孤女重生，狂虐渣男，手撕绿茶</p>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201903/f90e5ead5452431b94b90e4cc2b1a9c7.png"
-            />
-            <p class="item-name font-28">末世为王</p>
-            <p class="item-text font-24">末世穿越而来的王者！</p>
+            <p class="item-name font-28">{{ childItem.bigbook_name }}</p>
+            <p class="item-text font-24">{{ childItem.recommendwords }}</p>
           </div>
         </div>
-      </section>
-
-      <section class="index-recommend">
-        <div class="recommend-divide"></div>
-        <div class="recommend-title">
-          <div class="title-group">
-            <img class="title-icon" src="https://img.manhuadao.cn/upload/icon/180208/shaonv.png" />
-            <span class="title-text font-36">少女恋爱系</span>
-          </div>
-          <span class="title-more font-24">更多 &gt;</span>
-        </div>
-        <div class="recommend-type-1">
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201807/hsdshxq400400.jpg"
-            />
-            <p class="item-name font-28">贺少的闪婚暖妻</p>
-            <p class="item-text font-24">亲爱的，做好只属于我的觉悟吧！</p>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201808/kvcs400400.jpg"
-            />
-            <p class="item-name font-28">狂女重生：纨绔七皇妃</p>
-            <p class="item-text font-24">这一世，我不再是任人摆布的棋子</p>
-          </div>
-          <div class="item">
-            <img class="item-pic" src="https://img.manhuadao.cn/upload/lasy/0417/400-400.jpg" />
-            <p class="item-name font-28">撩爱上瘾</p>
-            <p class="item-text font-24">不小心就惹上了总裁</p>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201912/0bc2af84fd6540329669c65b1b85a9e1.jpg"
-            />
-            <p class="item-name font-28">逆袭天后系统</p>
-            <p class="item-text font-24">天才女导演重生小群演</p>
+        <div v-if="item.comicsviewtype === 5" :class="`recommend-type-5`">
+          <div
+            class="item"
+            v-for="childItem in item.comicslist"
+            :key="childItem.bigbook_id"
+          >
+            <img class="item-pic" :src="childItem.coverurl" />
+            <p class="item-name font-28">{{ childItem.bigbook_name }}</p>
+            <p class="item-text font-24">{{ childItem.key_name }}</p>
           </div>
         </div>
-      </section>
-
-      <section class="index-recommend">
-        <div class="recommend-divide"></div>
-        <div class="recommend-title">
-          <div class="title-group">
-            <img
-              class="title-icon"
-              src="https://img.manhuadao.cn/upload/icon/180208/ic_paihang.png"
-            />
-            <span class="title-text font-36">一周热门排行</span>
-          </div>
-          <span class="title-more font-24">更多 &gt;</span>
-        </div>
-
-        <div class="recommend-type-3">
-          <div class="item">
+        <div v-if="item.comicsviewtype === 3" :class="`recommend-type-3`">
+          <div
+            class="item"
+            v-for="(childItem, childIndex) in item.comicslist"
+            :key="childItem.bigbook_id"
+          >
             <img
               class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201901/1db019a4e0a849ecad0e1acc7f3705d8.jpg"
+              :src="JSON.parse(childItem.extension).scfk344_202"
             />
             <div class="ranking-group">
-              <div class="item-ranking item-ranking-1"></div>
+              <div :class="`item-ranking item-ranking-${childIndex + 1}`"></div>
             </div>
             <div class="text-group">
-              <p class="item-name font-30">地府开发商</p>
+              <p class="item-name font-30">{{ childItem.bigbook_name }}</p>
               <p class="item-hot font-24">
                 人气：
-                <span class="hot-hot">5.11亿</span>
+                <span class="hot-hot">{{ childItem.bigbookview }}</span>
               </p>
-              <p
-                class="item-text font-24"
-              >打工竟然偶遇女友和别人开房？！为了夺回女友，姚兵走上了开发地府的逆袭之路，一路收服小弟，攻略美女，甚至发现了女友身上隐藏的阴谋。以前，你们高高在上，如今，都得对我俯首陈臣！</p>
-            </div>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201809/cbsjsz504300.jpg"
-            />
-            <div class="ranking-group">
-              <div class="item-ranking item-ranking-2"></div>
-            </div>
-            <div class="text-group">
-              <p class="item-name font-30">才不是金手指</p>
-              <p class="item-hot font-24">
-                人气：
-                <span class="hot-hot">3.37亿</span>
-              </p>
-              <p
-                class="item-text font-24"
-              >袁洪面临事业、爱情双悲催，绝望的自杀却在此时意外获得金手指！金手指中潜藏的各种超级能力也随之慢慢浮现出来！今日的袁洪你爱理不理，明日的袁洪让你高攀不起！</p>
-            </div>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201809/wdwgrl504300.jpg"
-            />
-            <div class="ranking-group">
-              <div class="item-ranking item-ranking-3"></div>
-            </div>
-            <div class="text-group">
-              <p class="item-name font-30">我的外挂戒灵</p>
-              <p class="item-hot font-24">
-                人气：
-                <span class="hot-hot">3.21亿</span>
-              </p>
-              <p
-                class="item-text font-24"
-              >都市废材身陷怪梦，意外获得神秘戒指，开启最强外挂，悲惨人生开始惊天逆转！清冷女总裁、可爱未婚妻、性感女间谍一一倒贴而来！但就在要走上人生巅峰之时，却发现梦中戒指竟不止一枚！？为了神秘的封印，不得不杀死其他的持有者……</p>
-            </div>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201807/wjzccrf504300.jpg"
-            />
-            <div class="ranking-group">
-              <div class="item-ranking-other item-ranking-4"></div>
-            </div>
-            <div class="text-group">
-              <p class="item-name font-30">我家总裁吃软饭</p>
-              <p class="item-hot font-24">
-                人气：
-                <span class="hot-hot">2.59亿</span>
-              </p>
-              <p
-                class="item-text font-24"
-              >叶南心在目睹男友劈腿富家小姐的现场后，在郊区山上捡到一个受伤的帅气男人。这个男人从医院他醒来后，居然什么都不记得了？还赖在她的家里吃软饭？！然而，他真的失忆了吗？他和晟远集团的总裁陆嘉言怎么这么像……</p>
-            </div>
-          </div>
-          <div class="item">
-            <img
-              class="item-pic"
-              src="https://img.manhuadao.cn/upload/BigBook201806/ydgf504300.jpg"
-            />
-            <div class="ranking-group">
-              <div class="item-ranking-other item-ranking-5"></div>
-            </div>
-            <div class="text-group">
-              <p class="item-name font-30">一代诡妃</p>
-              <p class="item-hot font-24">
-                人气：
-                <span class="hot-hot">5.48亿</span>
-              </p>
-              <p
-                class="item-text font-24"
-              >鬼修公主纳兰天月，以吸食男人的阳气作为修炼的手段。供奉她的顾家背叛了她，她在屠尽顾家满门后消亡，却附身在另一个大陆的废柴丞相之女身上。被退婚、被陷害、无法修炼……这些能难倒身为天之骄女的她？笑话，她终将修为大进，睥睨天下！“别在本宫脚下哭，脏了本宫屠城的路。”</p>
-            </div>
-          </div>
-          <div class="item">
-            <img class="item-pic" src="https://img.manhuadao.cn/upload/2018/4/17/zclg504300.jpg" />
-            <div class="ranking-group"></div>
-            <div class="text-group">
-              <p class="item-name font-30">总裁老公爱不够</p>
-              <p class="item-hot font-24">
-                人气：
-                <span class="hot-hot">5.59亿</span>
-              </p>
-              <p class="item-text font-24">一夜情竟偶遇正牌老公？恶女缠身，初恋归来？唐泽辰，不要以为你是总裁就可以为所欲为！你是有老婆的人！</p>
+              <p class="item-text font-24">{{ childItem.brief }}</p>
             </div>
           </div>
         </div>
@@ -282,6 +119,7 @@
 // import Swiper from '@/components/Swiper/Swiper.vue'
 // import SwiperItem from '@/components/Swiper/SwiperItem.vue'
 import { Swiper, SwiperItem } from '@/components/Swiper'
+import { getBanner, getIndexRecommend } from '@/api/cartoon'
 
 export default {
   name: 'Home',
@@ -289,15 +127,57 @@ export default {
     Swiper,
     SwiperItem
   },
+  data () {
+    return {
+      // 需要一个数据，考虑哪些点？
+      // 1. 数据放在哪里，data? props? computed? state? getter?
+      // 2. 数据格式 string? object? number? array?
+      bannerList: [],
+      recommendList: []
+    }
+  },
   methods: {
     onChange (index) {
-      console.log('swiper', index)
+      // console.log('swiper', index)
+    },
+    getBanner () {
+      getBanner()
+        .then(res => {
+          // 漫画岛项目的每个接口都有 code 字段
+          // 这个字段如何是 200.这个接口才是ok的
+          if (res.code === 200) {
+            // ok
+            this.bannerList = res.info
+          } else {
+            // 不ok，就报错
+            // TODO，目前先使用丑陋的 alert，后面可以去用一下 vant 组件库中的组件。
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          alert('网络异常，请稍后', err)
+        })
+    },
+    getIndexRecommend () {
+      getIndexRecommend()
+        .then(res => {
+          if (res.code === 200) {
+            this.recommendList = res.info
+          } else {
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          alert('网络异常，请稍后', err)
+        })
     }
   },
   created () {
-    fetch('http://localhost:9090/migu/today/todayonhistory/').then(res => res.json()).then(res => {
-      console.log(res)
-    })
+    // 下载轮播图数据
+    this.getBanner()
+
+    // 下载首页推荐的数据
+    this.getIndexRecommend()
   }
 }
 </script>
@@ -513,6 +393,39 @@ export default {
           .item-ranking-5 {
             background-image: url("../../assets/icon/rank-5.png");
           }
+        }
+      }
+    }
+    .recommend-type-5 {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      box-sizing: border-box;
+      .item {
+        width: 112px;
+        height: 218px;
+        margin-bottom: 16px;
+        .item-pic {
+          width: 112px;
+          height: 148px;
+          margin-bottom: 4px;
+        }
+        .item-title {
+          max-width: 100%;
+          margin-bottom: 2px;
+          color: #3a3a3a;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+        .item-text {
+          max-width: 100%;
+          color: #8d8d8d;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
       }
     }
