@@ -86,3 +86,59 @@ export const getTypesList = (subject, pageno = 1, pagesize = 20) => {
     })
   })
 }
+
+/*
+  获取排行榜的数据
+  https://mhd.zhuishushenqi.com/comic_v2/comicsrank?apptype=8&appversion=1.0&channel=web-app
+*/
+export const getRankList = (ranktype, pageno = 1, pagesize = 20) => {
+  return request({
+    url: '/api/comic_v2/comicsrank',
+    method: 'POST',
+    params: {
+      apptype: 8,
+      appversion: 1.0,
+      channel: 'web-app'
+    },
+    // 注意这里有请求体, 这里的参数需要解码查看一下
+    // xKN0pYL6M22yUj6FOQT74hVyjxFcMmtfESOqVr+v0/qL6sKcwCKIfRGywZe3s8Zg:
+    // {
+    //   subject: ex,
+    //   pageno: 1,
+    //   pageSize: 20
+    // }
+    data: format({
+      ranktype,
+      pageno,
+      pagesize
+    })
+  })
+}
+
+/*
+* 获取Vip专区的数据
+* https://mhd.zhuishushenqi.com/comic_v2/comicsfilterlist_v2?apptype=8&appversion=1.0&channel=web-app
+*/
+export const getVipList = (special = 892, pageno = 1, pagesize = 15) => {
+  return request({
+    url: '/api/comic_v2/comicsfilterlist_v2',
+    method: 'POST',
+    params: {
+      apptype: 8,
+      appversion: 1.0,
+      channel: 'web-app'
+    },
+    // 注意这里有请求体, 这里的参数需要解码查看一下
+    // xKN0pYL6M22yUj6FOQT74hVyjxFcMmtfESOqVr+v0/qL6sKcwCKIfRGywZe3s8Zg:
+    // {
+    //   subject: ex,
+    //   pageno: 1,
+    //   pageSize: 20
+    // }
+    data: format({
+      special,
+      pageno,
+      pagesize
+    })
+  })
+}

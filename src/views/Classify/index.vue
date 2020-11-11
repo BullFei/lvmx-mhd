@@ -1,9 +1,9 @@
 <template>
   <div class="page-classify">
-    <normarl-header title = '分类'></normarl-header>
+    <normarl-header title="分类"></normarl-header>
     <div class="classify-main">
-      <header-type :types = "types" @click = "onTypeChange"></header-type>
-      <cartoon-list :list = "list"></cartoon-list>
+      <header-type :types="types" @click="onTypeChange"></header-type>
+      <cartoon-list :list="cartoonList"></cartoon-list>
     </div>
   </div>
 </template>
@@ -28,31 +28,48 @@ export default {
       list: []
     }
   },
+  computed: {
+    cartoonList () {
+      return this.comicsList.map(item => {
+        return {
+          id: item.bigbook_id,
+          coverurl: item.coverurl,
+          name: item.bigbook_name,
+          author: item.bigbook_author,
+          view: item.bigbookview
+        }
+      })
+    }
+  },
   methods: {
     getTypes () {
-      return getTypes().then(res => {
-        if (res.code === 200) {
-          this.types = res.info
-        } else {
-          alert(res.code_msg)
-        }
-      }).catch(err => {
-        alert('网络异常，请稍后重试' + err)
-      })
+      return getTypes()
+        .then(res => {
+          if (res.code === 200) {
+            this.types = res.info
+          } else {
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          alert('网络异常，请稍后重试' + err)
+        })
     },
     getTypesList (subject) {
-      getTypesList(subject).then(res => {
-        if (res.code === 200) {
-          // 对 res.info 解码出来的数据，进行解析
-          const info = JSON.parse(unformat(res.info))
-          this.list = info.comicsList
-        } else {
-          alert(res.code_msg)
-        }
-      }).catch(err => {
-        console.log(err)
-        alert('网络异常，请稍后重试')
-      })
+      getTypesList(subject)
+        .then(res => {
+          if (res.code === 200) {
+            // 对 res.info 解码出来的数据，进行解析
+            const info = JSON.parse(unformat(res.info))
+            this.list = info.comicsList
+          } else {
+            alert(res.code_msg)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          alert('网络异常，请稍后重试')
+        })
     },
     /*
       切换分类类型时，触发

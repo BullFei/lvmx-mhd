@@ -9,8 +9,12 @@ Vue.config.productionTip = false
 
 // 全局定义一个过滤器， formatYi
 Vue.filter('formatYi', (value) => {
-  console.log('value', value)
-  return `${(value / Math.pow(10, 8)).toFixed(2)}亿`
+  var YI = Math.pow(10, 8)
+  if (value > YI) {
+    return `${(value / YI).toFixed(2)}亿`
+  } else {
+    return `${(value / Math.pow(10, 4))}万`
+  }
 })
 
 new Vue({

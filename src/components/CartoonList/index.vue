@@ -1,28 +1,58 @@
 <template>
   <section class="cartoon-list">
-        <div class="list-item" v-for = "item in list" :key = "item.bigbook_id">
-          <div
-            class="item-pic"
-            :style="`background-image: url(${ item.coverurl });`"
-          ></div>
-          <div class="item-info">
-            <div class="info-book font-30">{{ item.bigbook_name }}</div>
-            <div class="info-author font-26">作者：{{ item.bigbook_author }}</div>
-            <div class="info-fans font-26">人气：{{ item.bigbookview | formatYi }}</div>
-          </div>
+    <div class="list-item" v-for="(item, index) in list" :key="item.bigbook_id">
+      <div
+        class="item-pic"
+        :style="`background-image: url(${item.coverurl});`"
+      ></div>
+      <div class="item-info">
+        <div class="info-book font-30">{{ item.name }}</div>
+        <div class="info-author font-26">作者：{{ item.author }}</div>
+        <div class="info-fans font-26">
+          人气：{{ item.view | formatYi }}
         </div>
-      </section>
+      </div>
+      <!-- 这里添加一个新的排行榜的样式 -->
+      <div
+        :class="`item-ranking-${index < 3 ? index + 1 : 'other'}`"
+        v-show="isRanking"
+      >
+        {{ index | filterA }}
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
   name: 'Cartoon',
+  /*
+    漫画列表数据，数据格式如下
+    [
+      {
+        id,
+        coverurl,
+        name,
+        author,
+        view
+      }
+    ]
+  */
   props: {
     list: {
       type: Array,
       default () {
         return []
       }
+    },
+    isRanking: {
+      type: Boolean,
+      default: false
+    }
+  },
+  filters: {
+    filterA (value) {
+      return value < 3 ? '' : value + 1
     }
   }
 }
@@ -63,10 +93,50 @@ export default {
       .info-book {
         color: #333;
       }
-      .info-book, .info-author {
+      .info-book,
+      .info-author {
         margin-bottom: 10px;
       }
     }
+  }
+  .item-ranking-1,
+  .item-ranking-2,
+  .item-ranking-3 {
+    width: 50px;
+    height: 28px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    bottom: 0;
+  }
+  .item-ranking-other {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26px;
+    height: 25px;
+    font-size: 12px;
+    color: #80808f;
+    background: url("~@/assets/icon/item-rank-other.png") no-repeat;
+    background-size: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 30px;
+    bottom: 0;
+  }
+  .item-ranking-1 {
+    background: url("~@/assets/icon/item-rank-1.png") no-repeat;
+    background-size: 100%;
+  }
+  .item-ranking-2 {
+    background: url("~@/assets/icon/item-rank-2.png") no-repeat;
+    background-size: 100%;
+  }
+  .item-ranking-3 {
+    background: url("~@/assets/icon/item-rank-3.png") no-repeat;
+    background-size: 100%;
   }
 }
 </style>
