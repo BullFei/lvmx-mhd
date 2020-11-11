@@ -142,3 +142,39 @@ export const getVipList = (special = 892, pageno = 1, pagesize = 15) => {
     })
   })
 }
+
+/**
+ * 热门搜索
+ * https://mhd.zhuishushenqi.com/comic/hotsearch?apptype=8&appversion=1.0&channel=web-app&appType=8
+*/
+export const getHotSearch = () => {
+  return request({
+    url: '/api/comic/hotsearch',
+    method: 'GET',
+    params: {
+      apptype: 8,
+      appversion: 1.0,
+      channel: 'web-app',
+      appType: 8
+    }
+  })
+}
+
+/**
+ * 搜索关键字
+ * https://mhd.zhuishushenqi.com/comic_v2/searchindex?apptype=8&appversion=1.0&channel=web-app&name=12&type=2
+*/
+
+export const searchIndex = (name = 1) => {
+  return request({
+    url: '/api/comic_v2/searchindex',
+    method: 'GET',
+    params: {
+      apptype: 8,
+      appversion: 1.0,
+      channel: 'web-app',
+      name,
+      type: 2
+    }
+  })
+}

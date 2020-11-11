@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     cartoonList () {
-      return this.comicsList.map(item => {
+      return this.list.map(item => {
         return {
           id: item.bigbook_id,
           coverurl: item.coverurl,
