@@ -1,5 +1,6 @@
 <template>
   <div class="page-home">
+    <router-link to = "/city">当前选择的城市是：{{this.$store.getters['city/curCityName']}}</router-link>
     <!-- 首页头部 begin -->
     <index-header></index-header>
     <!-- 首页头部 end -->
@@ -64,9 +65,6 @@ export default {
             alert(res.code_msg)
           }
         })
-        .catch(err => {
-          alert('网络异常，请稍后', err)
-        })
     },
     getIndexRecommend () {
       getIndexRecommend()
@@ -76,9 +74,6 @@ export default {
           } else {
             alert(res.code_msg)
           }
-        })
-        .catch(err => {
-          alert('网络异常，请稍后', err)
         })
     }
   },

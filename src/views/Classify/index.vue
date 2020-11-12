@@ -1,5 +1,6 @@
 <template>
   <div class="page-classify">
+    <router-link to = "/city">当前选择的城市是：{{this.$store.getters['city/curCityName']}}</router-link>
     <normarl-header title="分类"></normarl-header>
     <div class="classify-main">
       <header-type :types="types" @click="onTypeChange"></header-type>
@@ -51,9 +52,6 @@ export default {
             alert(res.code_msg)
           }
         })
-        .catch(err => {
-          alert('网络异常，请稍后重试' + err)
-        })
     },
     getTypesList (subject) {
       getTypesList(subject)
@@ -65,10 +63,6 @@ export default {
           } else {
             alert(res.code_msg)
           }
-        })
-        .catch(err => {
-          console.log(err)
-          alert('网络异常，请稍后重试')
         })
     },
     /*

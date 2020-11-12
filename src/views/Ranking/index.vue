@@ -52,8 +52,12 @@ export default {
   methods: {
     getRankList (ranktype) {
       getRankList(ranktype).then(res => {
-        const info = JSON.parse(unformat(res.info))
-        this.ranklist = info.ranklist
+        if (res.code === 200) {
+          const info = JSON.parse(unformat(res.info))
+          this.ranklist = info.ranklist
+        } else {
+          console.log(res.code_msg)
+        }
       })
     },
     onTypeChange (payload) {

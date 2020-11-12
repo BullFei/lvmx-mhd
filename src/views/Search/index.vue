@@ -86,9 +86,6 @@ export default {
         } else {
           console.log(res.code_msg)
         }
-      }).catch(err => {
-        console.log(err)
-        alert('网路异常，请稍后重试')
       })
     },
     searchIndex (name) {
@@ -99,10 +96,6 @@ export default {
           } else {
             alert(res.code_msg)
           }
-        })
-        .catch(err => {
-          console.log(err)
-          alert('网络异常，请稍后重试')
         })
     },
     /**
@@ -136,7 +129,7 @@ export default {
       // 1. 保存
       this.saveSearch(keyword)
       // 2. 跳转到搜索结果页面
-      this.$router.push('/search-result')
+      this.$router.push('/search-result?name=' + keyword)
     },
     delelteHistory () {
       this.historySearchList = []

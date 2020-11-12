@@ -13,6 +13,13 @@ import Register from '../views/Register'
 import Search from '../views/Search'
 import SearchResult from '../views/SearchResult'
 import Vip from '../views/Vip'
+import City from '../views/City'
+import store from '../store'
+
+// 引入nprogress 插件 引入核心css
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+nprogress.configure({ showSpinner: false })
 
 Vue.use(VueRouter)
 
@@ -25,6 +32,10 @@ const router = new VueRouter({
     {
       path: '/classify',
       component: Classify
+    },
+    {
+      path: '/city',
+      component: City
     },
     {
       path: '/hello',
@@ -77,5 +88,24 @@ const router = new VueRouter({
       redirect: '/home'
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  nprogress.start()
+  // 判断当前是否选择了城市，根据 sessionStorage 或者 store 去判断就行
+  if (!store.state.city.curCity && to.path !== '/city') {
+    // 先去城市列表页
+    next({
+      path: '/city',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  } else {
+    next()
+  }
+})
+router.afterEach(() => {
+  nprogress.done()
 })
 export default router
